@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  backend:
+    build: ./backend
+    container_name: sahayak-backend-offline
+    environment:
+      - OFFLINE_MODE=true
+      - DATABASE_URL=sqlite:////app/offline_data/triage.db
+      - JWT_SECRET=${JWT_SECRET}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - offline_data:/app/offline_data
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: sahayak-frontend-offline
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  offline_data:
