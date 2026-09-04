@@ -1,0 +1,10 @@
+{
+  "name": "SAHAYAK-Triage",
+  "short_name": "SAHAYAK",
+  "description": "Multimodal Healthcare Triage Assistant",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F9FAFB",
+  "theme_color": "#0F766E",
+  "icons": []
+}

@@ -1,0 +1,61 @@
+version: 1
+rules:
+  - id: R001
+    tag: RED
+    when:
+      any:
+        - field: spo2_percent
+          op: "<"
+          value: 92
+        - field: chest_pain_minutes
+          op: ">"
+          value: 30
+    message: "Low oxygen saturation or prolonged chest pain reported."
+
+  - id: R002
+    tag: RED
+    when:
+      any:
+        - field: bp_systolic
+          op: ">"
+          value: 180
+        - field: maternal_bleeding
+          op: "=="
+          value: 1
+    message: "Hypertensive emergency range or reported maternal bleeding."
+
+  - id: R003
+    tag: AMBER
+    when:
+      all:
+        - field: fever_duration_days
+          op: ">="
+          value: 3
+        - field: age_years
+          op: "<"
+          value: 5
+    message: "Fever lasting 3+ days in a child under 5."
+
+  - id: R004
+    tag: AMBER
+    when:
+      all:
+        - field: symptom_duration_hours
+          op: ">"
+          value: 72
+        - field: prior_condition_flag
+          op: "=="
+          value: 1
+    message: "Prolonged symptom in a patient with a known prior condition."
+
+  - id: R005
+    tag: GREEN
+    when:
+      all:
+        - field: symptom_count
+          op: "=="
+          value: 1
+        - field: symptom_duration_hours
+          op: "<"
+          value: 24
+    message: "Single mild symptom under 24 hours, no red-flag history."
